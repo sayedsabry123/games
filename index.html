@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألعب وتعلم</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- الشاشة الرئيسية -->
+    <div id="main-menu" class="menu-container">
+        <h1>ألعب وتعلم</h1>
+        <div class="game-cards">
+            <!-- الألعاب -->
+            <div class="game-card" onclick="startGame('arabic')">
+                <img src="https://5aen.net/wp-content/uploads/2020/03/6334-10.jpg" alt="اللغة العربية">
+                <h2>اللغة العربية</h2>
+            </div>
+            <div class="game-card" onclick="startGame('english')">
+                <img src="https://www.hadhramout-foundation.org/assets/news-main-pictures/_resampled/ScaleWidthWyI4ODYiXQ/anglescina-1200x675.jpg" alt="اللغة الإنجليزية">
+                <h2>اللغة الإنجليزية</h2>
+            </div>
+            <div class="game-card" onclick="startGame('math')">
+                <img src="https://al3omk.com/wp-content/uploads/2018/07/6018e18629d6e.jpg" alt="الرياضيات">
+                <h2>الرياضيات</h2>
+            </div>
+            <div class="game-card" onclick="startGame('intelligence')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNucLkq93vWCGh1AZVqWIvxrbwiaAlT9xhYg&s" alt="ذكاء">
+                <h2>ذكاء</h2>
+            </div>
+           
+            <div class="game-card" onclick="startGame('xo')">
+                <img src="https://cdn.salla.sa/lGOQYW/6df5ad22-7933-4a9f-afc0-4cdedd9f15a4-1000x998.65951742627-1bpICpNYVLKeWDFHjedRdz5hfWh8EGw9YDbzSIk3.png" alt="لعبة X-O">
+                <h2>X-O</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- واجهة اللعبة العامة -->
+    <div id="game-screen" class="game-container" style="display: none;">
+        <h1 id="game-title">اللعبة</h1>
+        <p id="timer">الوقت المتبقي: <span id="time">25</span> ثوانٍ</p>
+        <img src="" alt="صورة كرتونية" id="game-image" class="cartoon-image">
+        <p id="question"></p>
+        <div class="options">
+            <button class="option" onclick="checkAnswer('A')">-</button>
+            <button class="option" onclick="checkAnswer('B')">-</button>
+            <button class="option" onclick="checkAnswer('C')">-</button>
+        </div>
+        <button id="skip-btn" onclick="skipQuestion()">تخطي السؤال</button>
+        <div id="feedback"></div>
+        <p id="score-board">نقاطك: <span id="score">0</span></p>
+        <button id="back-btn" onclick="backToMenu()">العودة إلى القائمة</button>
+    </div>
+
+    <!-- واجهة لعبة الرسم -->
+    <div id="drawing-game" class="game-container" style="display: none;">
+        <h1>لعبة الرسم</h1>
+        <div id="drawing-tools">
+            <button onclick="setLineWidth(5)">سميك</button>
+            <button onclick="setLineWidth(2)">رقيق</button>
+            <button onclick="setColor('red')" style="background-color: red; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('blue')" style="background-color: blue; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('green')" style="background-color: green; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="clearCanvas()">مسح الرسم</button>
+        </div>
+        <canvas id="drawing-canvas" width="400" height="300"></canvas>
+        <button id="back-btn" onclick="backToMenu()">العودة إلى القائمة</button>
+    </div>
+
+    <!-- واجهة لعبة التلوين -->
+    <div id="coloring-game" class="game-container" style="display: none; text-align: center;">
+        <h2>لعبة التلوين</h2>
+        <div id="color-palette" style="margin-bottom: 20px;">
+            <button onclick="setColor('red')" style="background-color: red; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('blue')" style="background-color: blue; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('green')" style="background-color: green; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('yellow')" style="background-color: yellow; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('purple')" style="background-color: purple; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('orange')" style="background-color: orange; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="setColor('black')" style="background-color: black; width: 30px; height: 30px; border: none;"></button>
+            <button onclick="resetCanvas()" style="background-color: white; border: 1px solid black; width: 30px; height: 30px;">Reset</button>
+        </div>
+        <canvas id="coloring-canvas" width="400" height="300" style="border: 1px solid black;"></canvas>
+        <button id="back-btn" onclick="backToMenu()">العودة إلى القائمة</button>
+    </div>
+
+    <!-- واجهة لعبة الثعبان -->
+    <div id="snake-game" class="game-container" style="display: none;">
+        <h1>لعبة الثعبان</h1>
+        <canvas id="snake-canvas" width="400" height="400"></canvas>
+        <p id="snake-score">نقاطك: 0</p>
+        <button id="back-btn" onclick="backToMenu()">العودة إلى القائمة</button>
+    </div>
+
+    <!-- واجهة لعبة X-O -->
+    <div id="xo-game" class="game-container" style="display: none;">
+        <h1>لعبة XO</h1>
+        <div class="game-container">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <h2 id="status">دور اللاعب X</h2>
+        <button id="restart">إعادة اللعبة</button>
+        <button id="back-btn" onclick="backToMenu()">العودة إلى القائمة</button>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
